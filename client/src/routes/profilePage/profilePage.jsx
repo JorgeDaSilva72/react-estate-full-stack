@@ -3,14 +3,19 @@ import List from "../../components/list/List";
 import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
 import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+
+import { AuthContext } from "../../context/AuthContext";
 
 function ProfilePage() {
+  const { updateUser, currentUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await apiRequest.post("/auth/logout");
-      // updateUser(null);
+      updateUser(null);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -27,14 +32,14 @@ function ProfilePage() {
           </div>
           <div className="info">
             <span>
-              Avatar:
-              <img src="/herveKrist.jpg" alt="" />
+              Votre Avatar:
+              <img src={currentUser.avatar || "noavatar.jpg"} alt="" />
             </span>
             <span>
-              Username: <b>Herve Krist</b>
+              Votre nom d'utilisateur: <b>{currentUser.username}</b>
             </span>
             <span>
-              E-mail: <b>herve.krist@gmail.com</b>
+              Votre e-mail: <b>{currentUser.email}</b>
             </span>
             <button onClick={handleLogout}>Logout</button>
           </div>
