@@ -1,7 +1,7 @@
 import HomePage from "./routes/homePage/homePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ListPage from "./routes/listPage/listPage";
-import Layout from "./routes/layout/layout";
+import { Layout, RequireAuth } from "./routes/layout/layout";
 import SinglePage from "./routes/singlePage/singlePage";
 import ProfilePage from "./routes/profilePage/profilePage";
 import Login from "./routes/login/login";
@@ -9,6 +9,8 @@ import Register from "./routes/register/register";
 import AboutPage from "./routes/aboutPage/aboutPage";
 import ContactPage from "./routes/contactPage/contactPage";
 import AgentsPage from "./routes/agentsPage/agentsPage";
+import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage";
+import NewPostPage from "./routes/newPostPage/newPostPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,10 +30,7 @@ function App() {
           path: "/:id",
           element: <SinglePage />,
         },
-        {
-          path: "/profile",
-          element: <ProfilePage />,
-        },
+
         {
           path: "/login",
           element: <Login />,
@@ -51,6 +50,24 @@ function App() {
         {
           path: "/agents",
           element: <AgentsPage />,
+        },
+      ],
+    },
+    {
+      path: "/",
+      element: <RequireAuth />,
+      children: [
+        {
+          path: "/profile",
+          element: <ProfilePage />,
+        },
+        {
+          path: "/profile/update",
+          element: <ProfileUpdatePage />,
+        },
+        {
+          path: "/add",
+          element: <NewPostPage />,
         },
       ],
     },
