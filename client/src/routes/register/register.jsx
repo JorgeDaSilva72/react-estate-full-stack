@@ -38,9 +38,17 @@ function Register() {
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
           <h1>Créer un compte</h1>
-          <input name="username" type="text" placeholder="Username" />
-          <input name="email" type="text" placeholder="Email" />
-          <input name="password" type="password" placeholder="Password" />
+          <input
+            name="username"
+            type="text"
+            placeholder="Votre nom d'utilisateur"
+          />
+          <input name="email" type="text" placeholder="Votre e-mail" />
+          <input
+            name="password"
+            type="password"
+            placeholder="Votre mot de passe"
+          />
           <button disabled={isLoading}>S'inscrire</button>
           {error && <span>{error}</span>}
           <Link to="/login">Vous avez déjà un compte ? Se connecter</Link>
