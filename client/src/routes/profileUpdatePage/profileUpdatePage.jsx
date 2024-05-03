@@ -3,7 +3,7 @@ import "./profileUpdatePage.scss";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 import { useNavigate } from "react-router-dom";
-// import UploadWidget from "../../components/uploadWidget/UploadWidget";
+import UploadWidget from "../../components/uploadWidget/UploadWidget";
 
 function ProfileUpdatePage() {
   const { currentUser, updateUser } = useContext(AuthContext);
@@ -37,9 +37,9 @@ function ProfileUpdatePage() {
     <div className="profileUpdatePage">
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
-          <h1>Update Profile</h1>
+          <h1>Mettre à jour votre profil</h1>
           <div className="item">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Nom</label>
             <input
               id="username"
               name="username"
@@ -48,7 +48,7 @@ function ProfileUpdatePage() {
             />
           </div>
           <div className="item">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">E-mail</label>
             <input
               id="email"
               name="email"
@@ -57,7 +57,7 @@ function ProfileUpdatePage() {
             />
           </div>
           <div className="item">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Mot de Passe</label>
             <input id="password" name="password" type="password" />
           </div>
           <button>Update</button>
@@ -70,16 +70,16 @@ function ProfileUpdatePage() {
           alt=""
           className="avatar"
         />
-        {/* <UploadWidget
+        <UploadWidget
           uwConfig={{
-            cloudName: "lamadev",
-            uploadPreset: "estate",
+            cloudName: "dytskq6o3",
+            uploadPreset: "react-estate-full-stack",
             multiple: false,
             maxImageFileSize: 2000000,
             folder: "avatars",
           }}
           setState={setAvatar}
-        /> */}
+        />
       </div>
     </div>
   );
