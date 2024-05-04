@@ -47,7 +47,9 @@ function ProfilePage() {
           </div>
           <div className="title">
             <h1>Mes annonces</h1>
-            <button>Créer une nouvelle annonce</button>
+            <Link to="/add">
+              <button>Créer une annonce</button>
+            </Link>
           </div>
           <List />
           <div className="title">
