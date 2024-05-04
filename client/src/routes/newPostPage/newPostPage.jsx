@@ -132,7 +132,7 @@ function NewPostPage() {
                 id="income"
                 name="income"
                 type="text"
-                placeholder="Income Policy"
+                placeholder="Politique loyers"
               />
             </div>
             <div className="item">
