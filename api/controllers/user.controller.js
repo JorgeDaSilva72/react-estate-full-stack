@@ -75,3 +75,17 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: "Failed to delete users!" });
   }
 };
+
+export const profilePosts = async (req, res) => {
+  const tokenUserId = req.userId;
+  try {
+    const userPosts = await prisma.post.findMany({
+      where: { userId: tokenUserId },
+    });
+
+    res.status(200).json({ userPosts });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to get profile posts!" });
+  }
+};

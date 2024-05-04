@@ -2,12 +2,14 @@ import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
 import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Suspense, useContext } from "react";
 
 import { AuthContext } from "../../context/AuthContext";
 
 function ProfilePage() {
+  const data = useLoaderData();
+
   const { updateUser, currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -51,11 +53,17 @@ function ProfilePage() {
               <button>Créer une annonce</button>
             </Link>
           </div>
-          <List />
+          <Suspense fallback={<p>En chargement...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Erreur lors du chargement des annonces!</p>}
+            >
+              {(postResponse) => <List posts={postResponse.data.userPosts} />}
+            </Await>
+          </Suspense>
           <div className="title">
             <h1>Annonces sauvegardées</h1>
           </div>
-          <List />
         </div>
       </div>
       <div className="chatContainer">
