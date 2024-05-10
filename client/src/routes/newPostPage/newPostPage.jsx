@@ -59,19 +59,24 @@ function NewPostPage() {
           <form onSubmit={handleSubmit}>
             <div className="item">
               <label htmlFor="title">Titre</label>
-              <input id="title" name="title" type="text" />
+              <input id="title" name="title" type="text" required />
             </div>
             <div className="item">
               <label htmlFor="price">Prix</label>
-              <input id="price" name="price" type="number" />
+              <input id="price" name="price" type="number" required />
             </div>
             <div className="item">
               <label htmlFor="address">Adresse</label>
-              <input id="address" name="address" type="text" />
+              <input id="address" name="address" type="text" required />
             </div>
             <div className="item description">
               <label htmlFor="desc">Description</label>
-              <ReactQuill theme="snow" onChange={setValue} value={value} />
+              <ReactQuill
+                theme="snow"
+                onChange={setValue}
+                value={value}
+                required
+              />
             </div>
             <div className="item">
               <label htmlFor="city">Ville</label>
@@ -116,7 +121,6 @@ function NewPostPage() {
               <select name="utilities">
                 <option value="owner">Le propriétaire est responsable</option>
                 <option value="tenant">Le locataire est responsable</option>
-                <option value="shared">Responsabilités partagées</option>
               </select>
             </div>
             <div className="item">

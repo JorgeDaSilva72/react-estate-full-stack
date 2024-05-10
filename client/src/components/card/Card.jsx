@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import "./card.scss";
 
 function Card({ item }) {
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   return (
     <div className="card">
       <Link to={`/${item.id}`} className="imageContainer">
@@ -13,7 +16,8 @@ function Card({ item }) {
         </h2>
         <p className="address">
           <img src="/pin.png" alt="" />
-          <span>{item.address}</span>
+          <span>{item.address},</span>
+          <span>{capitalizeFirstLetter(item.city)}</span>
         </p>
         <p className="price"> {item.price} FCFA</p>
         <div className="bottom">

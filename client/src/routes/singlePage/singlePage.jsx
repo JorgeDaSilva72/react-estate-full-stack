@@ -2,11 +2,35 @@ import "./singlePage.scss";
 import Slider from "../../components/slider/Slider";
 import Map from "../../components/map/Map";
 //import { singlePostData, userData } from "../../lib/dummydata";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 
 function SinglePage() {
   const post = useLoaderData();
+  const [saved, setSaved] = useState(post.isSaved);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSave = async () => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+    // AFTER REACT 19 UPDATE TO USEOPTIMISTIK HOOK
+    setSaved((prev) => !prev);
+    try {
+      await apiRequest.post("/users/save", { postId: post.id });
+    } catch (err) {
+      console.log(err);
+      setSaved((prev) => !prev);
+    }
+  };
+
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
   return (
     <div className="singlePage">
@@ -19,14 +43,14 @@ function SinglePage() {
                 <h1>{post.title}</h1>
                 <div className="address">
                   <img src="/pin.png" alt="" />
-                  <span>{post.address}</span>
-                  <span>, {post.city}</span>
+                  <span>{post.address},</span>
+                  <span>, {capitalizeFirstLetter(post.city)}</span>
                 </div>
                 <div className="price">{post.price} FCFA</div>
               </div>
               <div className="user">
-                <img src={post.user.img} alt="" />
-                <span>{post.user.name}</span>
+                <img src={post.user.avatar} alt="" />
+                <span>{post.user.username}</span>
               </div>
             </div>
             <div
@@ -58,9 +82,9 @@ function SinglePage() {
               <div className="featureText">
                 <span>Politique animaux</span>
                 {post.postDetail.pet === "allowed" ? (
-                  <p>Pets Allowed</p>
+                  <p>Animaux acceptés</p>
                 ) : (
-                  <p>Pets not Allowed</p>
+                  <p>Animaux non admis</p>
                 )}
               </div>
             </div>
@@ -125,9 +149,14 @@ function SinglePage() {
               <img src="/chat.png" alt="" />
               Envoyer un message
             </button>
-            <button>
+            <button
+              onClick={handleSave}
+              style={{
+                backgroundColor: saved ? "#fece51" : "white",
+              }}
+            >
               <img src="/save.png" alt="" />
-              Sauvegarder l'endroit.
+              {saved ? "Annonce sauvegardée" : "Sauvegarder l'annonce"}
             </button>
           </div>
         </div>
