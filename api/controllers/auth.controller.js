@@ -70,7 +70,7 @@ export const login = async (req, res) => {
         // Cette option permet d’interdire l’utilisation du cookie côté client, il est donc impossible de récupérer celui-ci via l’instruction vue précédemment, on est donc protégé des failles XSS;
         httpOnly: true,
         // Cette option permet d’envoyer le cookie uniquement dans via le protocole HTTPS.
-        //secure: true, //A METTRE EN PRODUCTION
+        secure: true, //A METTRE EN PRODUCTION
         maxAge: age,
       })
       .status(200)
